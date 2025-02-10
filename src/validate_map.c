@@ -46,7 +46,7 @@ void fill_map_data(MapData **data)
 
 int validate_map(MapData **data)
 {
-    int (i);
+    int (i), (k);
     int first_rows_ln;
     int curnt_rows_ln;
 
@@ -56,16 +56,34 @@ int validate_map(MapData **data)
     {
         
         curnt_rows_ln = ft_strlen((*data)->map[i]);
-        if (curnt_rows_ln != first_rows_ln || (*data)->map[i][0] != '1')
+        if (curnt_rows_ln != first_rows_ln)
         {
-            printf("invalid map!\n");
+            printf("Error: Map is not rectangular!\n");
             return (0);
+        }
+        i++;
+    }
+    i = 0;
+    while (i < (*data)->rows)
+    {
+        k = 0;
+        while (k < first_rows_ln - 1)
+        {
+            if (i == 0 || i == (*data)->rows - 1 || k == 0 || k == first_rows_ln - 1)
+            {
+                if ((*data)->map[i][k] != '1')
+                {
+                    printf("Error: Map is not enclosed by walls!\n");
+                    return (0);
+                }
+            }
+            k++;
         }
         i++;
     }
     if ((*data)->player_count != 1 || (*data)->exit_count != 1 || (*data)->collectible_count < 1)
     {
-        printf("invalid map!\n");
+        printf("invalid mapp!\n");
         return (0);
     }
     return(1);
