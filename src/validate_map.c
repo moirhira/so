@@ -5,21 +5,7 @@
 #include "utils.c"
 #include <stdlib.h>
 
-#define WALL '1'
-#define PLAYER 'P'
-#define EXIT 'E'
-#define COLLECTIBLE 'C'
-#define EXPTY '0'
 
-typedef struct s_data
-{
-   char **map;
-   int rows;
-   int cols;
-   int player_count;
-   int exit_count;
-   int collectible_count; 
-}   MapData;
 
 void fill_map_data(MapData **data)
 {
@@ -173,9 +159,8 @@ int  check_accessibility(MapData *data)
     return (1);
 }
 
-int read_map()
+int read_map(MapData *new_map )
 {
-    MapData *new_map = malloc(sizeof(MapData));
     char *s;
     int (fd), (i);
 
