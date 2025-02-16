@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define WIDTH   800
-#define HIGHT   600
+#define WIDTH   575
+#define HIGHT   255
 
 
 
@@ -31,35 +31,66 @@ int load_spirets(t_game *game)
 
 void render_map(t_game *game)
 {
-    // int (x), (y);
-    // int (i), (j);
+    int (x), (y);
+    int (i), (j);
     
-    // i = 0;
-    // // while (i < game->dataMap->rows)
-    // // {
-    //     j = 0;
-    // //     while (j < game->dataMap->cols)
-    // //     {
-    //         x = j * 32;
-    //         y = i * 32;
-            // if (game->dataMap->map[0][0] == WALL)
-            //     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->wall_sprite, x, y);
-            // else if (game->dataMap->map[i][j] == EMPTY)
-            //     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->floor_sprite, x, y);
-            // else if (game->dataMap->map[i][j] == COLLECTIBLE)
-            //     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->collectible_sprite, x, y);
-            // else if (game->dataMap->map[i][j] == EXIT)
-            //     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->exit_sprite, x, y);
-            // else if (game->dataMap->map[i][j] == PLAYER)
-            //     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->player_sprite, x, y);
-    //         j++;
-    //     }
-    //     i++;
-    // }
-    printf("number %d\n", game->dataMap->map[0][0]);
+    i = 0;
+    while (i < game->dataMap->rows)
+    {
+        j = 0;
+        while (j < game->dataMap->cols)
+        {
+            x = j * 64;
+            y = i * 64;
+            if (game->dataMap->map[i][j] == WALL)
+                mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->wall_sprite, x, y);
+            else if (game->dataMap->map[i][j] == EMPTY)
+                mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->floor_sprite, x, y);
+            else if (game->dataMap->map[i][j] == COLLECTIBLE)
+                mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->collectible_sprite, x, y);
+            else if (game->dataMap->map[i][j] == EXIT)
+                mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->exit_sprite, x, y);
+            else if (game->dataMap->map[i][j] == PLAYER)
+                mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->player_sprite, x, y);
+            j++;
+        }
+        i++;
+    }
 }
+
+#include <stdlib.h>
+
+void init_map_data(MapData *map_data)
+{
+    map_data->map = NULL;  // Later, you'll allocate and fill this
+    map_data->rows = 0;
+    map_data->cols = 0;
+    map_data->player_count = 0;
+    map_data->exit_count = 0;
+    map_data->collectible_count = 0;
+}
+
+void init_game(t_game **game)
+{
+    (*game)->dataMap = (MapData *)malloc(sizeof(MapData));
+    if (!(*game)->dataMap)
+        return; // Handle allocation failure
+
+    init_map_data((*game)->dataMap);
+
+    (*game)->mlx_ptr = NULL;
+    (*game)->win_ptr = NULL;
+    (*game)->sprite_w_h = 32;  // Example sprite size
+    (*game)->player_sprite = NULL;
+    (*game)->wall_sprite = NULL;
+    (*game)->collectible_sprite = NULL;
+    (*game)->exit_sprite = NULL;
+    (*game)->floor_sprite = NULL;
+}
+
 int main() {
-    t_game *gameData = malloc(sizeof(t_game));
+    t_game *gameData;
+    init_game(&gameData);
     if (!read_map(gameData->dataMap))
         printf("map problem!\n");
     gameData->mlx_ptr = mlx_init();
@@ -71,8 +102,7 @@ int main() {
         return (free(gameData->mlx_ptr),1);
     if (!load_spirets(gameData))
         return (0);
-    printf("number %d\n", gameData->dataMap->map[0][0]);
-    // render_map(gameData);
+    render_map(gameData);
     mlx_loop(gameData->mlx_ptr);
     // mlx_destroy_window(gameData->mlx_ptr,gameData->win_ptr);
     // mlx_destroy_display(gameData->mlx_ptr);

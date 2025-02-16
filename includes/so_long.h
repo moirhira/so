@@ -32,5 +32,5 @@ typedef struct s_game
     void *floor_sprite;
 } t_game;
 
-int read_map();
+int read_map(MapData *new_map );
 #endif
