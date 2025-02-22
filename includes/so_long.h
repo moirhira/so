@@ -16,12 +16,17 @@ typedef struct s_data
    int cols;
    int player_count;
    int exit_count;
-   int collectible_count; 
+   int collectible_count;
+   int player_x;
+   int player_y;
 }   MapData;
 
 typedef struct s_game
 {
     MapData *dataMap;
+    int window_width;
+    int window_height;
+    int score;
     void *mlx_ptr;
     void *win_ptr;
     int sprite_w_h;

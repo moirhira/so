@@ -22,7 +22,11 @@ void fill_map_data(MapData **data)
             if ((*data)->map[i][j] == COLLECTIBLE)
                 (*data)->collectible_count++;
             if ((*data)->map[i][j] == PLAYER)
+            {
                 (*data)->player_count++;
+                (*data)->player_x = i;
+                (*data)->player_y = j;
+            }
             if ((*data)->map[i][j] == EXIT)
                 (*data)->exit_count++;
             j++;
@@ -51,7 +55,7 @@ int validate_map(MapData **data)
         }
         i++;
     }
-    (*data)->cols = first_rows_ln;
+    (*data)->cols = first_rows_ln - 1;
     i = 0;
     while (i < (*data)->rows)
     {
@@ -78,30 +82,6 @@ int validate_map(MapData **data)
     return(1);
 }
 
-void find_plyr_position(MapData *data, int *x, int *y)
-{
-    int (i), (j);
-
-    i = 0;
-    while (i < data->rows)
-    {
-        j = 0;
-        while (j < data->cols)
-        {
-            if (data->map[i][j] == PLAYER)
-            {
-                *x = i;
-                *y = j;
-                return;
-            }
-            j++;
-        }
-        i++;
-    }
-    *x = -1;
-    *y = -1;
-}
-
 void accessibility(MapData *data, int x, int y, int *colectibles_f, int *exit_f, int **visited)
 {
     if (x < 0 || x >= data->rows || y < 0 || y >= data->cols)
@@ -122,9 +102,8 @@ void accessibility(MapData *data, int x, int y, int *colectibles_f, int *exit_f,
 
 int  check_accessibility(MapData *data)
 {
-    int (x), (y), (clcbtl_f), (exit_f), (i), (j);
-    find_plyr_position(data, &x, &y);
-    if (x == -1 || y == -1)
+    int (clcbtl_f), (exit_f), (i), (j);
+    if (data->player_x == -1 || data->player_y == -1)
         return (0);
     int **visited = malloc(data->rows  * sizeof(int * ));
     if (!visited)
@@ -146,7 +125,7 @@ int  check_accessibility(MapData *data)
     }
     clcbtl_f = 0;
     exit_f = 0;
-    accessibility(data,x,y,&clcbtl_f,&exit_f,visited);
+    accessibility(data,data->player_x,data->player_y,&clcbtl_f,&exit_f,visited);
     if (clcbtl_f != data->collectible_count   || !exit_f)
     {
         printf("Error : unaccessibility (exit OR collectibles)!\n");
