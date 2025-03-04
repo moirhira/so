@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include "utils.c"
 #include <stdlib.h>
+#include "../libraries/libft/ft_split.c"
+#include "../libraries/libft/ft_strcmp.c"
+#include "../libraries/libft/ft_strlen_2d.c"
 
 
 
@@ -46,8 +49,9 @@ int validate_map(MapData **data)
     }
     first_rows_ln = ft_strlen((*data)->map[0]);
     i = 1;
-    while (i < (*data)->rows - 1)
+    while (i <= (*data)->rows - 1)
     {
+        printf("len : %d\n",ft_strlen((*data)->map[i]));
         if (ft_strlen((*data)->map[i]) != first_rows_ln)
         {
             printf("Error: Map is not rectangular!\n");
@@ -126,28 +130,36 @@ int  check_accessibility(MapData *data)
     clcbtl_f = 0;
     exit_f = 0;
     accessibility(data,data->player_x,data->player_y,&clcbtl_f,&exit_f,visited);
+    i = -1;
+    while (++i < data->rows)
+        free(visited[i]);
+    free(visited);
     if (clcbtl_f != data->collectible_count   || !exit_f)
     {
         printf("Error : unaccessibility (exit OR collectibles)!\n");
         return (0);
     }
-    i = 0;
-    while (++i < data->rows)
-        free(visited[i]);
-    free(visited);
     return (1);
 }
 
-int read_map(MapData *new_map )
+int read_map(MapData *new_map , char *file)
 {
     char *s;
     int (fd), (i);
 
-    fd = open("maps/map.ber", O_RDONLY);
+    char **fileval = ft_split(file, '.');
+    
+    if (ft_strcmp(fileval[1] , "ber") != 0)
+    {
+        printf("Error : the map must be .ber!\n");
+        free_split(fileval,ft_strlen_2d(fileval));
+        return (0);
+    }
+    free_split(fileval,ft_strlen_2d(fileval));
+    fd = open(file, O_RDONLY);
     if (fd == -1)
     {
         printf("Error opening file\n");
-        free(new_map);
         return (0);
     }
     new_map->rows = 0;
@@ -177,6 +189,7 @@ int read_map(MapData *new_map )
         if (!s)
             break;
         new_map->map[i++] = s;
+        
     }
     new_map->map[i] = NULL;
     fill_map_data(&new_map);
@@ -202,4 +215,3 @@ int read_map(MapData *new_map )
     }
     return (1);
 }
-

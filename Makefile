@@ -1,6 +1,6 @@
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Wextra 
+CFLAGS = -Wall -Wextra -Werror
 SRC = src/main.c src/validate_map.c libraries/get_next_line/get_next_line.c \
 		libraries/get_next_line/get_next_line_utils.c
 OBJ = ${SRC:.c=.o}
