@@ -1,0 +1,23 @@
+NAME = libft.a
+SRC  = ft_split.c ft_strcmp.c ft_strlen_2d.c
+OBJ  = $(SRC:.c=.o)
+CC   = gcc
+FLAGS = -Wall -Wextra -Werror
+
+all : $(NAME)
+
+$(NAME): $(OBJ)
+	ar rcs $(NAME) $(OBJ)
+
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
+
+clean : 
+	rm -f $(OBJ) $(BOBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re : fclean all
+
+.PHONY: re fclean clean 

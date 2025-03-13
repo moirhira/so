@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <string.h>
+#include "libft.h"
 
-// counting the number of words
 static int	ft_ctrword(char const *s, char c)
 {
 	size_t	wordctr;
@@ -65,7 +64,7 @@ static char	*copy_word(const char **s, char c)
 	return (ft_memalloc(start, len));
 }
 
-static char	**free_split(char **res, size_t indx)
+char	**free_split(char **res, size_t indx)
 {
 	while (indx > 0)
 	{
