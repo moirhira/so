@@ -9,12 +9,14 @@
 /*   Updated: 2025/03/13 11:47:49 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	update_game_state(t_game *data, int new_x, int new_y, int direction)
 {
 	if (data->mapdata->map[new_x][new_y] == 'C')
 		printf("score : %d\n", ++data->score);
+	else if (data->mapdata->map[new_x][new_y] == 'X')
+		return ((void)(printf("You lose!\n"), close_handler(data)));
 	else if (data->mapdata->map[new_x][new_y] == 'E')
 	{
 		if (data->mapdata->collectible_count == data->score)

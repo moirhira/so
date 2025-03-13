@@ -30,11 +30,10 @@ static int	ft_ctrword(char const *s, char c)
 	return (wordctr);
 }
 
-// Allocate Memory for the Array of Substrings
 static char	*ft_memalloc(char const *s, size_t len)
 {
-	size_t		i;
-	char		*ptr;
+	size_t	i;
+	char	*ptr;
 
 	ptr = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ptr)
@@ -98,37 +97,3 @@ char	**ft_split(char const *s, char c)
 	res[i] = NULL;
 	return (res);
 }
-// int main()
-// {
-//     char str[] = "Hello, how are you?";
-//     char **words = ft_split(str, ' ');
-//     for (int i = 0; words[i] != NULL; i++)
-//     {
-//         printf("%s\n", words[i]);
-//         free(words[i]); // Free each allocated substring
-//     }
-//     free(words); // Free the array of pointers
-//     return 0;
-// }
-// int ft_ctrword(char const *s, char c)
-// {
-//     size_t wordctr = 0;
-//     int in_word = 0;
-//     size_t i = 0;
-//     if (s == NULL)
-//         return 0;
-//     while (s[i] != '\0')
-//     {
-//         if (s[i] != c && in_word == 0) // Start of a new word
-//         {
-//             wordctr++;
-//             in_word = 1; // Now inside a word
-//         }
-//         else if (s[i] == c) // End of a word
-//         {
-//             in_word = 0;
-//         }
-//         i++;
-//     }
-//     return wordctr;
-// }

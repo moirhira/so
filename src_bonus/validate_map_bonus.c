@@ -9,7 +9,7 @@
 /*   Updated: 2025/03/13 12:05:46 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 int	validate_file_extension(char *file)
 {

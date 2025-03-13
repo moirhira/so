@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 int	load_spirets(t_game *game)
 {
@@ -33,11 +33,18 @@ int	load_spirets(t_game *game)
 			"spiretes/exit.xpm", &width, &height);
 	game->floor_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
 			"spiretes/floor.xpm", &width, &height);
+	game->enemy = mlx_xpm_file_to_image(game->mlx_ptr, "spiretes/enemy.xpm",
+			&width, &height);
 	if (!game->player_left || !game->player_right || !game->collectible_sprite
 		|| !game->wall_sprite || !game->exit_sprite || !game->floor_sprite
-		|| !game->player_dowwn || !game->player_top)
+		|| !game->player_dowwn || !game->player_top || !game->enemy)
 		return (printf("Err: failed load sprites!\n"), 0);
 	return (1);
+}
+
+void	put_sprite_to_window(t_game *game, void *sprite, int x, int y)
+{
+	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, sprite, x, y);
 }
 
 void	render_map(t_game *game)
@@ -51,20 +58,19 @@ void	render_map(t_game *game)
 		{
 			1 & (x = j * 64, y = i * 64);
 			if (game->mapdata->map[i][j] == WALL)
-				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->wall_sprite, x, y);
+				put_sprite_to_window(game, game->wall_sprite, x, y);
 			else if (game->mapdata->map[i][j] == COLLECTIBLE)
-				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->collectible_sprite, x, y);
+				put_sprite_to_window(game, game->collectible_sprite, x, y);
 			else if (game->mapdata->map[i][j] == EXIT)
-				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->exit_sprite, x, y);
+				put_sprite_to_window(game, game->exit_sprite, x, y);
 			else if (game->mapdata->map[i][j] == PLAYER)
-				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
-					game->player, x, y);
+				put_sprite_to_window(game, game->player, x, y);
 			else if (game->mapdata->map[i][j] == EMPTY)
 				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 					game->floor_sprite, x, y);
+			else if (game->mapdata->map[i][j] == ENEMY)
+				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
+					game->enemy, x, y);
 		}
 	}
 }
@@ -87,6 +93,8 @@ void	free_sprites(t_game *data)
 		mlx_destroy_image(data->mlx_ptr, data->exit_sprite);
 	if (data->floor_sprite)
 		mlx_destroy_image(data->mlx_ptr, data->floor_sprite);
+	if (data->enemy)
+		mlx_destroy_image(data->mlx_ptr, data->enemy);
 }
 
 int	close_handler(t_game *data)

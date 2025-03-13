@@ -9,7 +9,7 @@
 /*   Updated: 2025/03/13 11:48:19 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 int	ft_strlen(char *str)
 {

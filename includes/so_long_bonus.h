@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:30:43 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:30:46 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/03/13 23:16:56 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "../libraries/get_next_line/get_next_line.h"
 # include "../libraries/libft/libft.h"
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+# define ENEMY 'X'
 # define WALL '1'
 # define PLAYER 'P'
 # define EXIT 'E'
@@ -53,6 +54,7 @@ typedef struct s_game
 	void	*collectible_sprite;
 	void	*exit_sprite;
 	void	*floor_sprite;
+	void	*enemy;
 }			t_game;
 
 typedef struct s_accessibility

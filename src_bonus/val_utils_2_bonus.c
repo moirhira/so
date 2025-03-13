@@ -9,7 +9,7 @@
 /*   Updated: 2025/03/13 11:48:24 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	accessibility(t_data *data, t_accessibility *state, int x, int y)
 {
