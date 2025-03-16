@@ -1,44 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils.c                                       :+:      :+:    :+:   */
+/*   main_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:47:55 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:47:57 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:22:25 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long_bonus.h"
 
-int	load_spirets(t_game *game)
+int	load_spirets_helper(t_game *game)
 {
-	int (width), (height);
-	1 & (width = 64, height = 64);
-	game->player_left = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/player_left.xpm", &width, &height);
-	game->player_right = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/player_right.xpm", &width, &height);
-	game->player_top = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/player_top.xpm", &width, &height);
-	game->player_dowwn = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/player_down.xpm", &width, &height);
-	game->player = game->player_right;
-	game->wall_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/wall.xpm", &width, &height);
-	game->collectible_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/collectible.xpm", &width, &height);
-	game->exit_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/exit.xpm", &width, &height);
-	game->floor_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/floor.xpm", &width, &height);
-	game->enemy = mlx_xpm_file_to_image(game->mlx_ptr, "spiretes/enemy.xpm",
-			&width, &height);
 	if (!game->player_left || !game->player_right || !game->collectible_sprite
 		|| !game->wall_sprite || !game->exit_sprite || !game->floor_sprite
 		|| !game->player_dowwn || !game->player_top || !game->enemy)
 		return (printf("Err: failed load sprites!\n"), 0);
+	return (1);
+}
+
+int	load_spirets(t_game *game)
+{
+	int (w), (h);
+	1 && (w = 64, h = 64);
+	game->player_left = mlx_xpm_file_to_image(game->mlx_ptr,
+			"spiretes/player_left.xpm", &w, &h);
+	game->player_right = mlx_xpm_file_to_image(game->mlx_ptr,
+			"spiretes/player_right.xpm", &w, &h);
+	game->player_top = mlx_xpm_file_to_image(game->mlx_ptr,
+			"spiretes/player_top.xpm", &w, &h);
+	game->player_dowwn = mlx_xpm_file_to_image(game->mlx_ptr,
+			"spiretes/player_down.xpm", &w, &h);
+	game->player = game->player_right;
+	game->wall_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
+			"spiretes/wall.xpm", &w, &h);
+	game->collectible_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
+			"spiretes/collectible.xpm", &w, &h);
+	game->exit_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
+			"spiretes/exit.xpm", &w, &h);
+	game->floor_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
+			"spiretes/floor.xpm", &w, &h);
+	game->enemy = mlx_xpm_file_to_image(game->mlx_ptr, "spiretes/enemy.xpm", &w,
+			&h);
+	if (!load_spirets_helper(game))
+		return (0);
 	return (1);
 }
 
@@ -56,7 +63,7 @@ void	render_map(t_game *game)
 		j = -1;
 		while (++j <= game->mapdata->cols)
 		{
-			1 & (x = j * 64, y = i * 64);
+			1 && (x = j * 64, y = i * 64);
 			if (game->mapdata->map[i][j] == WALL)
 				put_sprite_to_window(game, game->wall_sprite, x, y);
 			else if (game->mapdata->map[i][j] == COLLECTIBLE)
@@ -95,28 +102,4 @@ void	free_sprites(t_game *data)
 		mlx_destroy_image(data->mlx_ptr, data->floor_sprite);
 	if (data->enemy)
 		mlx_destroy_image(data->mlx_ptr, data->enemy);
-}
-
-int	close_handler(t_game *data)
-{
-	int (i);
-	free_sprites(data);
-	if (data->mapdata)
-	{
-		i = 0;
-		while (i < data->mapdata->rows)
-		{
-			free(data->mapdata->map[i]);
-			i++;
-		}
-		free(data->mapdata->map);
-	}
-	if (data->win_ptr)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	if (data->mlx_ptr)
-		mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-	free(data->mapdata);
-	free(data);
-	exit(0);
 }

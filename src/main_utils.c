@@ -15,7 +15,7 @@
 int	load_spirets(t_game *game)
 {
 	int (width), (height);
-	1 & (width = 64, height = 64);
+	1 && (width = 64, height = 64);
 	game->player_left = mlx_xpm_file_to_image(game->mlx_ptr,
 			"spiretes/player_left.xpm", &width, &height);
 	game->player_right = mlx_xpm_file_to_image(game->mlx_ptr,
@@ -49,7 +49,7 @@ void	render_map(t_game *game)
 		j = -1;
 		while (++j <= game->mapdata->cols)
 		{
-			1 & (x = j * 64, y = i * 64);
+			1 && (x = j * 64, y = i * 64);
 			if (game->mapdata->map[i][j] == WALL)
 				mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 					game->wall_sprite, x, y);

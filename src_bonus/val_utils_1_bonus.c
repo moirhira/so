@@ -11,16 +11,6 @@
 /* ************************************************************************** */
 #include "../includes/so_long_bonus.h"
 
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
 void	fill_map_data(t_data **data)
 {
 	int (i), (j);
@@ -55,10 +45,10 @@ int	chek_walls(t_data **data, int first_col_ln)
 	while (i < (*data)->rows)
 	{
 		k = 0;
-		while (k < first_col_ln - 1)
+		while (k < first_col_ln)
 		{
 			if (i == 0 || i == (*data)->rows - 1 || k == 0 || k == first_col_ln
-				- 2)
+				- 1)
 			{
 				if ((*data)->map[i][k] != WALL)
 				{
@@ -73,24 +63,49 @@ int	chek_walls(t_data **data, int first_col_ln)
 	return (1);
 }
 
+int	only_valid_chars(t_data **data, int colslen)
+{
+	char	c;
+
+	int (i), (j);
+	i = 0;
+	while (i < (*data)->rows)
+	{
+		j = 0;
+		while (j < colslen)
+		{
+			c = (*data)->map[i][j];
+			if (!(c == 'C' || c == '1' || c == 'E' || c == 'P' || c == '0'
+					|| c == 'X'))
+				return (printf("Error: Invalid character '%c' in map!\n", c),
+					0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	validate_map(t_data **data)
 {
 	int (i), (first_col_ln), (len);
 	if ((*data)->rows == 0)
-	{
-		printf("Eroor : map empty!\n");
+		return (printf("Eroor : map empty!\n"), 0);
+	first_col_ln = ft_strlen((*data)->map[0]) - 1;
+	if (!only_valid_chars(data, first_col_ln))
 		return (0);
-	}
-	first_col_ln = ft_strlen((*data)->map[0]);
 	i = 0;
-	while (++i <= (*data)->rows - 1)
+	while (++i < (*data)->rows)
 	{
 		len = ft_strlen((*data)->map[i]);
+		if ((*data)->map[i][len - 1] == '\n')
+			len--;
 		if (len != first_col_ln)
 			return (printf("Error: Map is not rectangular!\n"), 0);
 	}
-	(*data)->cols = first_col_ln - 1;
-	chek_walls(data, first_col_ln);
+	(*data)->cols = first_col_ln;
+	if (!chek_walls(data, first_col_ln))
+		return (0);
 	if ((*data)->player_count != 1 || (*data)->exit_count != 1
 		|| (*data)->collectible_count < 1)
 	{

@@ -21,7 +21,7 @@ void	update_game_state(t_game *data, int new_x, int new_y, int direction)
 	{
 		if (data->mapdata->collectible_count == data->score)
 			return ((void)(printf("You win!\n"), close_handler(data)));
-		return ((void)(printf("You need to collect all collectibles!\n")));
+		return ((void)(printf("You must collect all collectibles!\n")));
 	}
 	if (direction == 65361)
 		data->player = data->player_left;
@@ -59,7 +59,7 @@ int	key_handler(int keycode, t_game *data)
 		&& data->mapdata->map[new_x][new_y] != '1')
 	{
 		update_game_state(data, new_x, new_y, keycode);
-		1 & (movement++, printf("Movements: %d\n", movement));
+		1 && (movement++, printf("Movements: %d\n", movement));
 	}
 	else
 		printf("Movement impossible!\n");

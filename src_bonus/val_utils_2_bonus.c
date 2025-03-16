@@ -11,21 +11,35 @@
 /* ************************************************************************** */
 #include "../includes/so_long_bonus.h"
 
-void	accessibility(t_data *data, t_accessibility *state, int x, int y)
+void	accessibility_c(t_data *data, t_accessibility *state, int x, int y)
+{
+	if (x < 0 || x >= data->rows || y < 0 || y >= data->cols)
+		return ;
+	if (state->visited[x][y] || data->map[x][y] == WALL
+		|| data->map[x][y] == EXIT)
+		return ;
+	state->visited[x][y] = 1;
+	if (data->map[x][y] == COLLECTIBLE)
+		state->colectibles_f++;
+	accessibility_c(data, state, x + 1, y);
+	accessibility_c(data, state, x - 1, y);
+	accessibility_c(data, state, x, y + 1);
+	accessibility_c(data, state, x, y - 1);
+}
+
+void	accessibility_e(t_data *data, t_accessibility *state, int x, int y)
 {
 	if (x < 0 || x >= data->rows || y < 0 || y >= data->cols)
 		return ;
 	if (state->visited[x][y] || data->map[x][y] == WALL)
 		return ;
 	state->visited[x][y] = 1;
-	if (data->map[x][y] == COLLECTIBLE)
-		(*state->colectibles_f)++;
 	if (data->map[x][y] == EXIT)
-		(*state->exit_f)++;
-	accessibility(data, state, x + 1, y);
-	accessibility(data, state, x - 1, y);
-	accessibility(data, state, x, y + 1);
-	accessibility(data, state, x, y - 1);
+		state->exit_f++;
+	accessibility_e(data, state, x + 1, y);
+	accessibility_e(data, state, x - 1, y);
+	accessibility_e(data, state, x, y + 1);
+	accessibility_e(data, state, x, y - 1);
 }
 
 int	**allocate_visited_array(t_data *data)
@@ -57,25 +71,27 @@ int	check_accessibility(t_data *data)
 {
 	t_accessibility	state;
 	int				**visited;
+	int				i;
 
-	int (clcbtl_f), (exit_f), (i);
 	visited = allocate_visited_array(data);
 	if (!visited || data->player_x == -1 || data->player_y == -1)
 		return (0);
-	clcbtl_f = 0;
-	exit_f = 0;
-	state.colectibles_f = &clcbtl_f;
-	state.exit_f = &exit_f;
+	state.exit_f = 0;
 	state.visited = visited;
-	accessibility(data, &state, data->player_x, data->player_y);
+	accessibility_e(data, &state, data->player_x, data->player_y);
 	i = -1;
 	while (++i < data->rows)
 		free(visited[i]);
 	free(visited);
-	if (clcbtl_f != data->collectible_count || !exit_f)
-	{
-		printf("Error : unaccessibility (exit OR collectibles)!\n");
-		return (0);
-	}
+	visited = allocate_visited_array(data);
+	state.colectibles_f = 0;
+	state.visited = visited;
+	accessibility_c(data, &state, data->player_x, data->player_y);
+	i = -1;
+	while (++i < data->rows)
+		free(visited[i]);
+	free(visited);
+	if (state.colectibles_f != data->collectible_count || !state.exit_f)
+		return (printf("Err: unaccessibility (exit OR collectibles)!\n"), 0);
 	return (1);
 }

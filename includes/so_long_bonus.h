@@ -59,8 +59,8 @@ typedef struct s_game
 
 typedef struct s_accessibility
 {
-	int		*colectibles_f;
-	int		*exit_f;
+	int		colectibles_f;
+	int		exit_f;
 	int		**visited;
 }			t_accessibility;
 
@@ -69,7 +69,6 @@ void		fill_map_data(t_data **data);
 int			chek_walls(t_data **data, int first_col_ln);
 int			validate_map(t_data **data);
 int			ft_strlen(char *str);
-void		accessibility(t_data *data, t_accessibility *state, int x, int y);
 int			**allocate_visited_array(t_data *data);
 int			check_accessibility(t_data *data);
 int			validate_file_extension(char *file);

@@ -73,7 +73,7 @@ char	**allocate_and_read_map(int rows, char *file)
 			break ;
 		map[i++] = s;
 	}
-	1 & (map[i] = NULL, close(fd));
+	1 && (map[i] = NULL, close(fd));
 	return (map);
 }
 
