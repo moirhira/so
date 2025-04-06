@@ -14,25 +14,25 @@
 
 int	load_spirets(t_game *game)
 {
-	int (width), (height);
-	1 && (width = 64, height = 64);
+	int width = 64;
+	int height = 64;
 	game->player_left = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/player_left.xpm", &width, &height);
+			"spiretes/player_left.xpm", &height, &width);
 	game->player_right = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/player_right.xpm", &width, &height);
+			"spiretes/player_right.xpm", &height, &width);
 	game->player_top = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/player_top.xpm", &width, &height);
+			"spiretes/player_top.xpm", &height, &width);
 	game->player_dowwn = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/player_down.xpm", &width, &height);
+			"spiretes/player_down.xpm", &height, &width);
 	game->player = game->player_right;
 	game->wall_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/wall.xpm", &width, &height);
+			"spiretes/wall.xpm", &height, &width);
 	game->collectible_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/collectible.xpm", &width, &height);
+			"spiretes/collectible.xpm", &height, &width);
 	game->exit_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/exit.xpm", &width, &height);
+			"spiretes/exit.xpm", &height, &width);
 	game->floor_sprite = mlx_xpm_file_to_image(game->mlx_ptr,
-			"spiretes/floor.xpm", &width, &height);
+			"spiretes/floor.xpm", &height, &width);
 	if (!game->player_left || !game->player_right || !game->collectible_sprite
 		|| !game->wall_sprite || !game->exit_sprite || !game->floor_sprite
 		|| !game->player_dowwn || !game->player_top)
@@ -91,7 +91,7 @@ void	free_sprites(t_game *data)
 
 int	close_handler(t_game *data)
 {
-	int (i);
+	int		i;
 	free_sprites(data);
 	if (data->mapdata)
 	{

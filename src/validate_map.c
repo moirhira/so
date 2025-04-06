@@ -16,9 +16,12 @@ int	validate_file_extension(char *file)
 	char	**fileval;
 
 	fileval = ft_split(file, '.');
-	if (ft_strcmp(fileval[1], "ber") != 0)
+	if (ft_strcmp(fileval[1], "ber") != 0 || ft_strcmp(fileval[0], "maps/") == 0)
 	{
-		printf("Error : the map must be .ber!\n");
+		if (ft_strcmp(fileval[0], "maps/") == 0)
+			printf("Error : the map must have name!\n");
+		else
+			printf("Error : the map must be .ber!\n");
 		free_split(fileval, ft_strlen_2d(fileval));
 		return (0);
 	}

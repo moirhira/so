@@ -26,6 +26,14 @@
 # define COLLECTIBLE 'C'
 # define EMPTY '0'
 
+typedef struct s_vars
+{
+	int var1;
+	int var2;
+	int var3;
+	int var4;
+}			t_vars;
+
 typedef struct s_data
 {
 	char	**map;
@@ -41,6 +49,7 @@ typedef struct s_data
 typedef struct s_game
 {
 	t_data	*mapdata;
+	int		movement;
 	int		score;
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -53,6 +62,7 @@ typedef struct s_game
 	void	*collectible_sprite;
 	void	*exit_sprite;
 	void	*floor_sprite;
+	t_vars	*vars;
 }			t_game;
 
 typedef struct s_accessibility
@@ -61,6 +71,7 @@ typedef struct s_accessibility
 	int		exit_f;
 	int		**visited;
 }			t_accessibility;
+
 
 // validate map
 void		fill_map_data(t_data **data);

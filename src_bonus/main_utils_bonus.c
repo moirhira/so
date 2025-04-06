@@ -80,6 +80,7 @@ void	render_map(t_game *game)
 					game->enemy, x, y);
 		}
 	}
+	
 }
 
 void	free_sprites(t_game *data)

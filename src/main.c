@@ -11,56 +11,59 @@
 /* ************************************************************************** */
 #include "../includes/so_long.h"
 
-void	update_game_state(t_game *data, int new_x, int new_y, int direction)
+int	update_game_state(t_game *data, int new_x, int new_y, int direction)
 {
-	if (data->mapdata->map[new_x][new_y] == 'C')
-		printf("score : %d\n", ++data->score);
+	if (!(new_x >= 0 && new_x < data->mapdata->rows && new_y >= 0
+		&& new_y < data->mapdata->cols
+		&& data->mapdata->map[new_x][new_y] != '1'))
+		return (0);
+	
 	else if (data->mapdata->map[new_x][new_y] == 'E')
 	{
 		if (data->mapdata->collectible_count == data->score)
-			return ((void)(printf("You win!\n"), close_handler(data)));
-		return ((void)(printf("You must collect all collectibles!\n")));
+			return (printf("You win!\n"), close_handler(data), 0);
+		return (printf("You must collect all collectibles!\n"), 0);
 	}
-	if (direction == 65361)
+	data->movement++;
+	if (data->mapdata->map[new_x][new_y] == 'C')
+		data->score++;
+	if (direction == 65361 || direction == 97)
 		data->player = data->player_left;
-	else if (direction == 65363)
+	else if (direction == 65363 || direction == 100)
 		data->player = data->player_right;
-	else if (direction == 65362)
+	else if (direction == 65362 || direction == 119)
 		data->player = data->player_top;
-	else if (direction == 65364)
+	else if (direction == 65364 || direction == 115)
 		data->player = data->player_dowwn;
 	data->mapdata->map[data->mapdata->player_x][data->mapdata->player_y] = '0';
 	data->mapdata->player_x = new_x;
 	data->mapdata->player_y = new_y;
 	data->mapdata->map[new_x][new_y] = 'P';
+	return (1);
 }
 
 int	key_handler(int keycode, t_game *data)
 {
-	static int	movement = 0;
-
-	int (new_x), (new_y);
+	int new_x;
+	int new_y;
 	new_x = data->mapdata->player_x;
 	new_y = data->mapdata->player_y;
 	if (keycode == 65307)
 		close_handler(data);
-	else if (keycode == 65361)
-		new_y--;
-	else if (keycode == 65363)
-		new_y++;
-	else if (keycode == 65362)
-		new_x--;
-	else if (keycode == 65364)
-		new_x++;
-	if (new_x >= 0 && new_x < data->mapdata->rows && new_y >= 0
-		&& new_y < data->mapdata->cols
-		&& data->mapdata->map[new_x][new_y] != '1')
+	if (keycode == 65361 || keycode == 65363 || keycode == 65362 || keycode == 65364 || 
+		keycode == 119 || keycode == 115 || keycode == 97 || keycode == 100)
 	{
-		update_game_state(data, new_x, new_y, keycode);
-		1 && (movement++, printf("Movements: %d\n", movement));
+		if (keycode == 65361 || keycode == 97)
+			new_y--;
+		else if (keycode == 65363 || keycode == 100)
+			new_y++;
+		else if (keycode == 65362 || keycode == 119)
+			new_x--;
+		else if (keycode == 65364 || keycode == 115)
+			new_x++;
+		if (update_game_state(data, new_x, new_y, keycode))
+			printf("movement : %d\n", data->movement );
 	}
-	else
-		printf("Movement impossible!\n");
 	return (1);
 }
 
@@ -70,6 +73,22 @@ int	loop_hook(t_game *game)
 	return (1);
 }
 
+void init_data(t_game *data)
+{
+	data->movement = 0;
+	data->score = 0;
+	data->mlx_ptr = NULL;
+	data->win_ptr  = NULL;
+	data->player_left  = NULL;
+	data->player_right  = NULL;
+	data->player_top  = NULL;
+	data->player_dowwn  = NULL;
+	data->player  = NULL;
+	data->wall_sprite  = NULL;
+	data->collectible_sprite  = NULL;
+	data->exit_sprite  = NULL;
+	data->floor_sprite  = NULL;
+}
 int	init_main(t_game **gamedata, char *map)
 {
 	*gamedata = malloc(sizeof(t_game));
@@ -88,6 +107,7 @@ int	init_main(t_game **gamedata, char *map)
 		free(*gamedata);
 		return (0);
 	}
+	init_data(*gamedata);
 	return (1);
 }
 

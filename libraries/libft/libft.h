@@ -21,5 +21,7 @@ char	**free_split(char **res, size_t indx);
 int		ft_strlen_2d(char **str);
 int		ft_strlen(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
+char    *ft_itoa(int nbr);
+char    *ft_strjoin(char *s1, char *s2);
 
 #endif

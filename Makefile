@@ -21,7 +21,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(OBJ) -L$(LIBFT_DIR) $(MLX_LIB) -L$(MLX_DIR) -I$(MLX_DIR) -lft -lXext -lX11 -lm -lz -o $(NAME)
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	make re -C $(LIBFT_DIR)
 
 bonus: $(NAME_1)
 
@@ -42,3 +42,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+#problem in the 

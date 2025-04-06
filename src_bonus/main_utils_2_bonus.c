@@ -34,3 +34,16 @@ int	close_handler(t_game *data)
 	free(data);
 	exit(0);
 }
+void render_moves(int movement, t_game *data)
+{
+	char	*str;
+	char	*count;
+
+	count = ft_itoa(movement);
+	str = ft_strjoin("move's : ", count);
+
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 20, 20, 0xFFFFFF, str);
+	free(count);
+	free(str);
+}
+

@@ -42,6 +42,7 @@ typedef struct s_data
 typedef struct s_game
 {
 	t_data	*mapdata;
+	int		movement;
 	int		score;
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -81,5 +82,6 @@ int			load_spirets(t_game *game);
 void		render_map(t_game *game);
 void		free_sprites(t_game *data);
 int			close_handler(t_game *data);
+void		render_moves(int movement, t_game *data);
 
 #endif
