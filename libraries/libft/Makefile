@@ -7,7 +7,7 @@ FLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) libft.h
 	ar rcs $(NAME) $(OBJ)
 
 %.o: %.c

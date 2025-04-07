@@ -1,27 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_printf_functions1.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 11:44:44 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:44:46 by moirhira         ###   ########.fr       */
+/*   Created: 2024/11/28 22:05:46 by moirhira          #+#    #+#             */
+/*   Updated: 2024/11/28 22:05:54 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef LIBFT_H
-# define LIBFT_H
 
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
+#include "ft_printf.h"
 
-char	**ft_split(char const *s, char c);
-char	**free_split(char **res, size_t indx);
-int		ft_strlen_2d(char **str);
-int		ft_strlen(char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_itoa(int nbr);
-char	*ft_strjoin(char *s1, char *s2);
+void	ft_putchar(char c)
+{
+	write (1, &c, 1);
+}
 
-#endif
+size_t	ft_strllen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int	handel_c_and_prsnt_format(char c)
+{
+	ft_putchar(c);
+	return (1);
+}
+
+int	handel_s_format(char *str)
+{
+	if (!str)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	write (1, str, ft_strllen(str));
+	return (ft_strllen(str));
+}

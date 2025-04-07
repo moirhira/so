@@ -22,12 +22,12 @@ static void	ft_strcoopy(char *dest, const char *src, size_t start)
 		i++;
 	}
 }
-#include <stdio.h>
+
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char		*ptr;
-	size_t		s1len;
-	size_t		s2len;
+	size_t	s1len;
+	size_t	s2len;
+	char	*ptr;
 
 	if (!s1 || !s2)
 		return (NULL);

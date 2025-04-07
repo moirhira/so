@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_utils_2_bonus.c                               :+:      :+:    :+:   */
+/*   main_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,32 +9,7 @@
 /*   Updated: 2025/03/14 20:21:34 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/so_long_bonus.h"
-
-int	close_handler(t_game *data)
-{
-	int	i;
-
-	free_sprites(data);
-	if (data->mapdata)
-	{
-		i = 0;
-		while (i < data->mapdata->rows)
-		{
-			free(data->mapdata->map[i]);
-			i++;
-		}
-		free(data->mapdata->map);
-	}
-	if (data->win)
-		mlx_destroy_window(data->mlx, data->win);
-	if (data->mlx)
-		mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	free(data->mapdata);
-	free(data);
-	exit(0);
-}
+#include "../includes/so_long.h"
 
 void	init_data(t_game *data)
 {
@@ -51,17 +26,25 @@ void	init_data(t_game *data)
 	data->collectible_sprite = NULL;
 	data->exit_sprite = NULL;
 	data->floor_sprite = NULL;
-	data->enemy = NULL;
 }
 
-void	render_moves(int movement, t_game *data)
+int	init_main(t_game **gamedata, char *map)
 {
-	char	*str;
-	char	*count;
-
-	count = ft_itoa(movement);
-	str = ft_strjoin("move's : ", count);
-	mlx_string_put(data->mlx, data->win, 20, 20, 0xFFFFFF, str);
-	free(count);
-	free(str);
+	*gamedata = malloc(sizeof(t_game));
+	if (!*gamedata)
+		return (0);
+	(*gamedata)->mapdata = malloc(sizeof(t_data));
+	if (!(*gamedata)->mapdata)
+	{
+		free(*gamedata);
+		return (0);
+	}
+	if (!read_map((*gamedata)->mapdata, map))
+	{
+		free((*gamedata)->mapdata);
+		free(*gamedata);
+		return (0);
+	}
+	init_data(*gamedata);
+	return (1);
 }

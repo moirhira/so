@@ -11,11 +11,40 @@
 /* ************************************************************************** */
 #include "../includes/so_long_bonus.h"
 
+int	is_doubled(char *str)
+{
+	int	i;
+	int	counter;
+
+	counter = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '.')
+			counter++;
+		i++;
+	}
+	if (counter > 1)
+		return (1);
+	return (0);
+}
+
 int	validate_file_extension(char *file)
 {
 	char	**fileval;
 
+	if (is_doubled(file))
+	{
+		printf("Error : the map have more than extension!\n");
+		return (0);
+	}
 	fileval = ft_split(file, '.');
+	if (ft_strcmp(fileval[0], "maps/") == 0)
+	{
+		printf("Error : the map must have name!\n");
+		free_split(fileval, ft_strlen_2d(fileval));
+		return (0);
+	}
 	if (ft_strcmp(fileval[1], "ber") != 0)
 	{
 		printf("Error : the map must be .ber!\n");
@@ -29,8 +58,9 @@ int	validate_file_extension(char *file)
 int	count_map_row(char *file)
 {
 	char	*s;
+	int		fd;
+	int		rows;
 
-	int (fd), (rows);
 	rows = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -54,11 +84,12 @@ char	**allocate_and_read_map(int rows, char *file)
 {
 	char	*s;
 	char	**map;
+	int		fd;
+	int		i;
 
-	int (fd), (i);
 	map = malloc((rows + 1) * sizeof(char *));
 	if (!map)
-		return (printf("Err from malloc!\n"), NULL);
+		return (printf("Error: from malloc!\n"), NULL);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{

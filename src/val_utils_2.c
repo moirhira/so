@@ -45,8 +45,9 @@ void	accessibility_e(t_data *data, t_accessibility *state, int x, int y)
 int	**allocate_visited_array(t_data *data)
 {
 	int	**visited;
+	int	i;
+	int	j;
 
-	int (i), (j);
 	visited = malloc(data->rows * sizeof(int *));
 	if (!visited)
 	{
@@ -92,6 +93,6 @@ int	check_accessibility(t_data *data)
 		free(visited[i]);
 	free(visited);
 	if (state.colectibles_f != data->collectible_count || !state.exit_f)
-		return (printf("Err: unaccessibility (exit OR collectibles)!\n"), 0);
+		return (printf("Error: unaccessibility (exit OR collectibles)!\n"), 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:30:43 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:30:46 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/07 22:58:40 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define SO_LONG_H
 
 # include "../libraries/get_next_line/get_next_line.h"
+# include "/usr/include/minilibx-linux/mlx.h"
 # include "../libraries/libft/libft.h"
-# include "../libraries/minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -28,10 +28,10 @@
 
 typedef struct s_vars
 {
-	int var1;
-	int var2;
-	int var3;
-	int var4;
+	int		var1;
+	int		var2;
+	int		var3;
+	int		var4;
 }			t_vars;
 
 typedef struct s_data
@@ -51,8 +51,8 @@ typedef struct s_game
 	t_data	*mapdata;
 	int		movement;
 	int		score;
-	void	*mlx_ptr;
-	void	*win_ptr;
+	void	*mlx;
+	void	*win;
 	void	*player_left;
 	void	*player_right;
 	void	*player_top;
@@ -62,7 +62,6 @@ typedef struct s_game
 	void	*collectible_sprite;
 	void	*exit_sprite;
 	void	*floor_sprite;
-	t_vars	*vars;
 }			t_game;
 
 typedef struct s_accessibility
@@ -71,7 +70,6 @@ typedef struct s_accessibility
 	int		exit_f;
 	int		**visited;
 }			t_accessibility;
-
 
 // validate map
 void		fill_map_data(t_data **data);
@@ -90,5 +88,7 @@ int			load_spirets(t_game *game);
 void		render_map(t_game *game);
 void		free_sprites(t_game *data);
 int			close_handler(t_game *data);
+void		init_data(t_game *data);
+int			init_main(t_game **gamedata, char *map);
 
 #endif

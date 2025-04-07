@@ -13,7 +13,9 @@
 
 void	fill_map_data(t_data **data)
 {
-	int (i), (j);
+	int	i;
+	int	j;
+
 	(*data)->player_count = 0;
 	(*data)->exit_count = 0;
 	(*data)->collectible_count = 0;
@@ -40,7 +42,9 @@ void	fill_map_data(t_data **data)
 
 int	chek_walls(t_data **data, int first_col_ln)
 {
-	int (i), (k);
+	int	i;
+	int	k;
+
 	i = 0;
 	while (i < (*data)->rows)
 	{
@@ -66,8 +70,9 @@ int	chek_walls(t_data **data, int first_col_ln)
 int	only_valid_chars(t_data **data, int colslen)
 {
 	char	c;
+	int		i;
+	int		j;
 
-	int (i), (j);
 	i = 0;
 	while (i < (*data)->rows)
 	{
@@ -88,12 +93,13 @@ int	only_valid_chars(t_data **data, int colslen)
 
 int	validate_map(t_data **data)
 {
-	int (i), (first_col_ln), (len);
+	int	i;
+	int	first_col_ln;
+	int	len;
+
 	if ((*data)->rows == 0)
-		return (printf("Eroor : map empty!\n"), 0);
+		return (printf("Error : map empty!\n"), 0);
 	first_col_ln = ft_strlen((*data)->map[0]) - 1;
-	if (!only_valid_chars(data, first_col_ln))
-		return (0);
 	i = 0;
 	while (++i < (*data)->rows)
 	{
@@ -106,11 +112,10 @@ int	validate_map(t_data **data)
 	(*data)->cols = first_col_ln;
 	if (!chek_walls(data, first_col_ln))
 		return (0);
+	if (!only_valid_chars(data, first_col_ln))
+		return (0);
 	if ((*data)->player_count != 1 || (*data)->exit_count != 1
 		|| (*data)->collectible_count < 1)
-	{
-		printf("invalid mapp!\n");
-		return (0);
-	}
+		return (printf("Error: invalid map!\n"), 0);
 	return (1);
 }
