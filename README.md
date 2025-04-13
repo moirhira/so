@@ -5,7 +5,6 @@
 This repository contains my implementation of the **so_long** project from 42 School. The project consists of building a simple 2D game using the MiniLibX graphics library, where the player collects coins and exits the map while respecting specific constraints.
 
 ---
-<img \>
 ## Project Overview
 
 - **Library**: MiniLibX (simple graphics library)
