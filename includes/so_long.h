@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:30:43 by moirhira          #+#    #+#             */
-/*   Updated: 2025/04/07 22:58:40 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:27:59 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../libraries/get_next_line/get_next_line.h"
 # include "/usr/include/minilibx-linux/mlx.h"
 # include "../libraries/libft/libft.h"
+# include "../libraries/printf/ft_printf.h"
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 
 # define WALL '1'

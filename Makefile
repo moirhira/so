@@ -1,5 +1,5 @@
 NAME = so_long
-NAME_1 = so_long_bonus
+BONUS = so_long_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SRC = 	src/main.c src/main_utils.c src/main_utils_2.c src/validate_map.c src/val_utils_1.c src/val_utils_2.c \
@@ -25,16 +25,16 @@ $(NAME): $(LIBFT) $(PRINTF_LIB) $(OBJ)
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-bonus: $(NAME_1)
+bonus: $(BONUS)
 
-$(NAME_1): $(LIBFT) $(PRINTF_LIB) $(OBJ_BONUS)
-	$(CC) $(OBJ_BONUS) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -L$(MLX_DIR) -lmlx -lft -lftprintf -lXext -lX11  -o $(NAME_1)
+$(BONUS): $(LIBFT) $(PRINTF_LIB) $(OBJ_BONUS)
+	$(CC) $(OBJ_BONUS) -L$(LIBFT_DIR) -L$(PRINTF_DIR) -L$(MLX_DIR) -lmlx -lft -lftprintf -lXext -lX11  -o $(BONUS)
 
 $(PRINTF_LIB):
 	make -C $(PRINTF_DIR)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	make clean -C $(LIBFT_DIR)
@@ -44,8 +44,8 @@ clean:
 fclean: clean
 	make fclean -C $(LIBFT_DIR)
 	make fclean -C $(PRINTF_DIR)
-	rm -f $(NAME) $(NAME_1)
+	rm -f $(NAME) $(BONUS)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean bonus fclean re

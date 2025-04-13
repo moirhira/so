@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:44:44 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:44:46 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:33:24 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
-
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>

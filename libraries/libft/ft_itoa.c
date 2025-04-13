@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 10:52:48 by moirhira          #+#    #+#             */
-/*   Updated: 2025/04/05 10:52:49 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:32:09 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 static int	int_len(int n)

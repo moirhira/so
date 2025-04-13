@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_2_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:21:25 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/14 20:21:34 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:35:10 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/so_long_bonus.h"
 
 int	close_handler(t_game *data)
@@ -60,7 +61,7 @@ void	render_moves(int movement, t_game *data)
 	char	*count;
 
 	count = ft_itoa(movement);
-	str = ft_strjoin("move's : ", count);
+	str = ft_strjoin("moves : ", count);
 	mlx_string_put(data->mlx, data->win, 20, 20, 0xFFFFFF, str);
 	free(count);
 	free(str);

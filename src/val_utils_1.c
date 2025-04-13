@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   val_utils_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:48:18 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:48:19 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:29:20 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 void	fill_map_data(t_data **data)
@@ -56,7 +57,7 @@ int	chek_walls(t_data **data, int first_col_ln)
 			{
 				if ((*data)->map[i][k] != WALL)
 				{
-					printf("Error: Map is not enclosed by walls!\n");
+					ft_printf("Error\nMap is not enclosed by walls!\n");
 					return (0);
 				}
 			}
@@ -81,12 +82,27 @@ int	only_valid_chars(t_data **data, int colslen)
 		{
 			c = (*data)->map[i][j];
 			if (!(c == 'C' || c == '1' || c == 'E' || c == 'P' || c == '0'))
-				return (printf("Error: Invalid character '%c' in map!\n", c),
+				return (ft_printf("Error\nInvalid character '%c' in map!\n", c),
 					0);
 			j++;
 		}
 		i++;
 	}
+	return (1);
+}
+
+int	check_objct_count(t_data **data)
+{
+	if ((*data)->player_count == 0)
+		return (ft_printf("Error\nNo player!\n"), 0);
+	if ((*data)->player_count != 1)
+		return (ft_printf("Error\nDuplicate player!\n"), 0);
+	if ((*data)->exit_count == 0)
+		return (ft_printf("Error\nNo exit!\n"), 0);
+	if ((*data)->exit_count != 1)
+		return (ft_printf("Error\nDuplicate exit!\n"), 0);
+	if ((*data)->collectible_count < 1)
+		return (ft_printf("Error\nNo enough collectibles!\n"), 0);
 	return (1);
 }
 
@@ -96,8 +112,6 @@ int	validate_map(t_data **data)
 	int	first_col_ln;
 	int	len;
 
-	if ((*data)->rows == 0)
-		return (printf("Error : map empty!\n"), 0);
 	first_col_ln = ft_strlen((*data)->map[0]) - 1;
 	i = 0;
 	while (++i < (*data)->rows)
@@ -106,15 +120,14 @@ int	validate_map(t_data **data)
 		if ((*data)->map[i][len - 1] == '\n')
 			len--;
 		if (len != first_col_ln)
-			return (printf("Error: Map is not rectangular!\n"), 0);
+			return (ft_printf("Error\nNo rectangular!\n"), 0);
 	}
 	(*data)->cols = first_col_ln;
 	if (!chek_walls(data, first_col_ln))
 		return (0);
 	if (!only_valid_chars(data, first_col_ln))
 		return (0);
-	if ((*data)->player_count != 1 || (*data)->exit_count != 1
-		|| (*data)->collectible_count < 1)
-		return (printf("Error: invalid map!\n"), 0);
+	if (!check_objct_count(data))
+		return (0);
 	return (1);
 }

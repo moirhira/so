@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:47:55 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:47:57 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:29:14 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	load_spirets(t_game *game)
 	if (!game->player_left || !game->player_right || !game->collectible_sprite
 		|| !game->wall_sprite || !game->exit_sprite || !game->floor_sprite
 		|| !game->player_dowwn || !game->player_top)
-		return (printf("Err: failed load sprites!\n"), 0);
+		return (ft_printf("Error\nfailed load sprites!\n"), 0);
 	return (1);
 }
 
@@ -96,7 +96,6 @@ int	close_handler(t_game *data)
 {
 	int	i;
 
-	printf("movement : %d\n", data->movement);
 	free_sprites(data);
 	if (data->mapdata)
 	{

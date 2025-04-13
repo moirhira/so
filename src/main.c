@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 11:47:47 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:47:49 by moirhira         ###   ########.fr       */
+/*   Created: 2025/04/11 16:26:52 by moirhira          #+#    #+#             */
+/*   Updated: 2025/04/11 16:29:17 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 int	helper_game_state(t_game *data, int new_x, int new_y)
@@ -27,7 +28,8 @@ int	update_game_state(t_game *data, int new_x, int new_y, int direction)
 	else if (data->mapdata->map[new_x][new_y] == 'E')
 	{
 		if (data->mapdata->collectible_count == data->score)
-			return (data->movement++, close_handler(data), 0);
+			return (data->movement++, ft_printf("movement : %d\n",
+					data->movement), close_handler(data), 0);
 		return (0);
 	}
 	data->movement++;
@@ -70,14 +72,9 @@ int	key_handler(int keycode, t_game *data)
 		else if (keycode == 65364 || keycode == 115)
 			new_x++;
 		if (update_game_state(data, new_x, new_y, keycode))
-			printf("movement : %d\n", data->movement);
+			ft_printf("movement : %d\n", data->movement);
+		render_map(data);
 	}
-	return (1);
-}
-
-int	loop_hook(t_game *game)
-{
-	render_map(game);
 	return (1);
 }
 
@@ -86,25 +83,24 @@ int	main(int ac, char **av)
 	t_game	*gamedata;
 
 	if (ac != 2)
-	{
-		printf("%s\n", "Usage: ./so_long  <filename>\n");
-		return (0);
-	}
+		return (ft_printf("Error\nUsage: ./so_long  maps/<filename>\n"), 1);
 	if (!init_main(&gamedata, av[1]))
-		return (0);
+		return (1);
 	gamedata->mlx = mlx_init();
 	if (!gamedata->mlx)
-		return (0);
+		return (ft_printf("Error\nmlx_init fail!\n"), close_handler(gamedata),
+			1);
 	gamedata->win = mlx_new_window(gamedata->mlx, 64 * gamedata->mapdata->cols,
-			64 * gamedata->mapdata->rows, "Game : race");
+			64 * gamedata->mapdata->rows, "Game : so_long");
 	if (!gamedata->win)
-		return (free(gamedata->mlx), 1);
+		return (ft_printf("Error\ncreation window fail!\n"),
+			close_handler(gamedata), 1);
 	if (!load_spirets(gamedata))
 		close_handler(gamedata);
+	render_map(gamedata);
 	mlx_hook(gamedata->win, 2, 1L << 0, key_handler, gamedata);
 	mlx_hook(gamedata->win, 17, 0, close_handler, gamedata);
-	mlx_loop_hook(gamedata->mlx, loop_hook, gamedata);
 	mlx_loop(gamedata->mlx);
 	close_handler(gamedata);
-	return (1);
+	return (0);
 }

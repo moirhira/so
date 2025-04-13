@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 18:57:04 by moirhira          #+#    #+#             */
-/*   Updated: 2024/11/13 22:04:02 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:28:18 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,22 +118,3 @@ char	*get_next_line(int fd)
 	buffer = update_buffer(buffer);
 	return (line);
 }
-
-// #include <fcntl.h>
-// #include <stdio.h>
-// int main()
-// {
-// 	int fd = open("tt.txt", O_RDWR);
-// 	char *s = get_next_line(fd);
-// 	printf("%s", s);
-// 	free(s);
-// 	s = get_next_line(fd);
-// 	while (s)
-// 	{
-// 		free(s);
-// 		s = get_next_line(fd);
-// 	}
-// 	free(s);
-// 	close(fd);
-// 	return (0);
-// }

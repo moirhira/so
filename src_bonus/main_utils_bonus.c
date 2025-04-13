@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:47:55 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/14 20:22:25 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:29:43 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	load_spirets_helper(t_game *game)
 	if (!game->player_left || !game->player_right || !game->collectible_sprite
 		|| !game->wall_sprite || !game->exit_sprite || !game->floor_sprite
 		|| !game->player_dowwn || !game->player_top || !game->enemy)
-		return (printf("Error: failed load sprites!\n"), 0);
+		return (ft_printf("Error\nfailed load sprites!\n"), 0);
 	return (1);
 }
 

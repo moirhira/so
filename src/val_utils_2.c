@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   val_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 11:48:23 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:48:24 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:29:25 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 void	accessibility_c(t_data *data, t_accessibility *state, int x, int y)
@@ -51,7 +52,7 @@ int	**allocate_visited_array(t_data *data)
 	visited = malloc(data->rows * sizeof(int *));
 	if (!visited)
 	{
-		printf("Error: Memory allocation failed!\n");
+		ft_printf("Error\nMemory allocation failed!\n");
 		return (0);
 	}
 	i = 0;
@@ -60,7 +61,7 @@ int	**allocate_visited_array(t_data *data)
 		j = 0;
 		visited[i] = malloc(sizeof(int) * data->cols);
 		if (!visited[i])
-			printf("Error: Memory allocation failed!\n");
+			ft_printf("Error\nMemory allocation failed!\n");
 		while (j < data->cols)
 			visited[i][j++] = 0;
 		i++;
@@ -93,6 +94,6 @@ int	check_accessibility(t_data *data)
 		free(visited[i]);
 	free(visited);
 	if (state.colectibles_f != data->collectible_count || !state.exit_f)
-		return (printf("Error: unaccessibility (exit OR collectibles)!\n"), 0);
+		return (ft_printf("Error\nunacesibility (exit OR collectibles)!\n"), 0);
 	return (1);
 }

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moirhira <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: moirhira <moirhira@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:21:25 by moirhira          #+#    #+#             */
-/*   Updated: 2025/03/14 20:21:34 by moirhira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:29:07 by moirhira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 void	init_data(t_game *data)
