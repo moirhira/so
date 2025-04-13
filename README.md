@@ -35,5 +35,9 @@ This repository contains my implementation of the **so_long** project from 42 Sc
 ```bash
 git clone https://github.com/moirhira/so_long.git
 cd so_long
+```
 
 ## 2. Compile the game
+```bash
+make
+```
