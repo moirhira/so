@@ -1,4 +1,4 @@
-![Game Screenshot](screenshot/screenshot.png)
+![Game Screenshot](screenshot/so.png)
 
 # so_long
 
