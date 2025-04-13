@@ -3,7 +3,7 @@
 This repository contains my implementation of the **so_long** project from 42 School. The project consists of building a simple 2D game using the MiniLibX graphics library, where the player collects coins and exits the map while respecting specific constraints.
 
 ---
-
+<img \>
 ## Project Overview
 
 - **Library**: MiniLibX (simple graphics library)
@@ -16,7 +16,7 @@ This repository contains my implementation of the **so_long** project from 42 Sc
 
 ## Features
 
-- Movement using `W`, `A`, `S`, `D` keys
+- Movement using `W`, `A`, `S`, `D` and arrows keys
 - Collectibles must be gathered before the exit is usable
 - Player cannot walk through walls
 - Basic enemy support (optional)
@@ -37,7 +37,20 @@ git clone https://github.com/moirhira/so_long.git
 cd so_long
 ```
 
-## 2. Compile the game
+### 2. -> Compile the game (mandatory part)
 ```bash
 make
 ```
+
+### 2. -> Compile the game (bonus part)
+```bash
+make bonus
+```
+
+### 3. Run the game
+```bash
+./so_long maps/map1.ber
+```
+### 
+### Author
+mohamed irhiralla (moirhira) – GitHub Profile
