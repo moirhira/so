@@ -33,5 +33,7 @@ This repository contains my implementation of the **so_long** project from 42 Sc
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/so_long.git
+git clone https://github.com/moirhira/so_long.git
 cd so_long
+
+## 2. Compile the game
